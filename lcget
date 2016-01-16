@@ -1,0 +1,167 @@
+#!/usr/bin/expect --
+#####################################################################
+# Let's Encrypt wrapper to automate the process of completing
+# challenges to get free SSL certificates from Let's Encrypt.
+# ###################################################################
+# Takes same kind of arguments as the letsencrypt command
+# and depends on letsencrypt to run those commands and finally
+# Get the certificates. All this script does is to complete the
+# challenges using ssh login to remote server.
+# 
+#Options:
+# 
+# -lp /path/to/letsencrypt/launcher : If this option is not given
+#       It will assume 'letsencrypt' as the name of the launcher
+#       and it resides on a standard bin directory in your system.
+#
+#####################################################################
+
+
+#####################################################################
+proc get_ssh_command {dom cdir cont} {
+    if {$dom == ""} {
+        puts "E: Couldn't parse domain. Abort."
+        exit 1
+    }
+    if {$cdir == ""} {
+        puts "E: Couldn't parse directory name. Abort."
+        exit 1
+    }
+    if {$cont == ""} {
+        puts "E: Couldn't parse content. Abort."
+        exit 1
+    }
+    
+    set comms "echo 'Completing challenge...'
+    if mkdir -p '$cdir'; then
+        echo 'Created dir: $cdir'
+        if cd '$cdir';then
+            echo 'cd to dir: $cdir'
+            if echo -n '$cont' >index.html;then
+                echo 'Created index.html'
+                printf 'Challenge completed on:'
+                dirname \`pwd\`
+            else
+                echo 'Failed to write file. Abort.'
+            fi
+        else
+            echo 'cd to $cdir failed. Abort.'
+        fi
+    else
+        echo 'E: Could not create directory. Abort.'
+        exit 1
+    fi"
+
+    return "$comms"
+}
+
+#####################################################################
+
+
+set timeout -1
+#exp_internal 1
+
+set program "letsencrypt"
+set arguments [lrange $argv 0 end]
+
+#Check for no-args
+if {[llength $argv] == 0} {
+    puts "
+    E: No args passed.
+    Usage: $argv0 subcommand options
+    Example: $argv0 certonly -c /path/to/config/file
+    "
+    exit 1
+}
+
+#$argv 0 can not be empty
+if {[lindex $arguments 0] == "" } {
+    puts "
+    E: Empty argument.
+    Usage: $argv0 subcommand options
+    Example: $argv0 certonly -c /path/to/config/file
+    "
+    exit 1
+}
+
+
+#Check for -lp option. Set the program path 
+for {set var 0} {$var<$argc} {incr var} {
+    if {[lindex $arguments $var] == "-lp" || [lindex $arguments $var] == "--launcher-path"} {
+        if {[lindex $arguments [expr {$var+1}]] != ""} {
+            set program [lindex $arguments [expr {$var+1}]]
+            set arguments [lreplace $arguments $var [expr {$var+1}]]
+        } else {
+            puts "E: Argument missing for option: [lindex $arguments $var]"
+            exit 1
+        }
+    }
+}
+
+if {[catch {spawn -noecho $program --text {*}$arguments}]} {
+    puts "E: Let's Encrypt launcher not found: $program"
+    exit 1
+}
+
+set letse_spawn $spawn_id
+
+
+while {1} {
+    expect  {
+        #set spawn_id $letse_spawn
+        timeout { exp_send_user "\nFailed!!!. Timed out.\n"; exit 1}
+        eof {break}
+        -nocase "*http*.well-known*acme-challenge*http*server*configured*continue" {
+            set output $expect_out(buffer)
+            set found [regexp  {^.*(https?://)([^/]*)/([^[:space:]]*)[^:]*:[[:space:]]*([^[:space:]]*)} $output match protocol domain dir cont]
+            puts "\n\nProtocol: $protocol\nDomain: $domain\nDir: $dir\nContent: $cont\n"
+            set comms [get_ssh_command $domain $dir $cont]
+            spawn -noecho jssh -cdw $domain $comms
+            set jssh_spawn $spawn_id
+            while {1} {
+                expect  {
+                    timeout { exp_send_user "\nFailed!!!. Timed out.\n"; exit 1}
+                    eof {break}
+                    -nocase "*password" {
+                        stty -echo
+                        exp_send_user -- ""
+                        expect_user -re "(.*)\n"
+                        #exp_send_user "\n"
+                        stty echo
+                        set password $expect_out(1,string)
+                        exp_send "$password\r"
+                    }
+                }
+            }
+            exp_close $spawn_id
+            set spawn_id $letse_spawn
+            exp_send "\r"
+            exp_send_user "\nCompleted challenge for $domain  \n"
+        }
+        -nocase "*password" {
+            stty -echo
+            exp_send_user -- ""
+            expect_user -re "(.*)\n"
+            #exp_send_user "\n"
+            stty echo
+            set password $expect_out(1,string)
+            exp_send "$password\r"
+        }
+        -nocase "*terms of service*(a)ccept" {
+            set password [gets stdin]
+            exp_send "$password\r"
+        }
+        -nocase "*are you ok with your ip being logged\?" {
+            set password [gets stdin]
+            exp_send "$password\r"
+        }
+    }
+}
+
+
+#Clearing step, Finally close the spawns
+
+#set spawn_id $letse_spawn
+if {[catch {exp_close}]} {
+#spawn was already closed
+}
