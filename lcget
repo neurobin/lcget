@@ -147,12 +147,16 @@ while {1} {
             set password $expect_out(1,string)
             exp_send "$password\r"
         }
-        -nocase "*terms of service*(a)ccept" {
-            set password [gets stdin]
+        -nocase "*terms of service*:" {
+            exp_send_user -- ""
+            expect_user -re "(.*)\n"
+            set password $expect_out(1,string)
             exp_send "$password\r"
         }
-        -nocase "*are you ok with your ip being logged\?" {
-            set password [gets stdin]
+        -nocase "*are you ok with your ip being logged\?*:" {
+            exp_send_user -- ""
+            expect_user -re "(.*)\n"
+            set password $expect_out(1,string)
             exp_send "$password\r"
         }
     }
