@@ -1,7 +1,7 @@
-[lcget](.) is a wrapper (written in [Tcl/expect](https://en.wikipedia.org/wiki/Expect)) for letsencrypt which automates the task of completing challenges for remote server/domains from a local machine. It relieves you of the pain of running multiple commands in multiple terminals. Most of the time, a single command in a single terminal will be enough to get the certificate from Let's Encrypt. It doesn't require sudo access on remote host if the document root is in /home directory i.e for shared hosting.
+**lcget** is a wrapper (written in [Tcl/expect](https://en.wikipedia.org/wiki/Expect)) for letsencrypt which automates the task of completing challenges for remote server/domains from a local machine. It relieves you of the pain of running multiple commands in multiple terminals. Most of the time, a single command in a single terminal will be enough to get the certificate from Let's Encrypt. It doesn't require sudo access on remote host if the document root is in /home directory i.e for shared hosting.
 
 #Mechanism:
-The `lcget` is a [expect](https://en.wikipedia.org/wiki/Expect) script which runs the letsencrypt command and monitor its' output. When the challenge appears on the output of `letsencrypt` command, the script parses necessary information about the challenge and tries to complete the challenge itself.
+**lcget** is a [expect](https://en.wikipedia.org/wiki/Expect) script which runs the letsencrypt command and monitor its' output. When the challenge appears on the output of `letsencrypt` command, the script parses necessary information about the challenge and tries to complete the challenge itself.
 
 To complete the http challenge, **lcget** requires ssh access to remote host i.e it runs ssh commands to the remote host to meet the necessary requirements for the acme challenge.
 
