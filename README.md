@@ -394,5 +394,5 @@ break-my-certs
 Only the required codes for completing http challenge in manual mode is included for now, though this can be extended to support other modes and challenges too.
 
 #Further development:
-You can add other options and make **all** the things in letsencrypt automated with a little bit of knowledge about Tcl/expect. So if you feel you can do the development and extend its' capability please fork the repository and add changes and do a pull request. I will greatly appreciate that.
+You can add other options and make **all** the things in letsencrypt automated by a little haggling with Tcl/expect. So, if you feel you can do the development and extend its' capability please fork the repository and add changes and do a pull request. I will greatly appreciate that.
 

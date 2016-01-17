@@ -2,7 +2,8 @@
 
 #####################################################################
 # Coding conventions:
-# * Error message must start with 'E: ' and end with 'Abort.'
+# * Error message must start with 'E: ' (and end with 'Abort.' if it 
+#   needs to be aborted).
 #
 #####################################################################
 
@@ -57,7 +58,7 @@ Author email:
 set err_api_change "
 It seems Let's Encrypt api has gone through some changes.
 Please update this script and if you get this error again,
-then file a bug report at $p_bugt
+then please file a bug report at $p_bugt
 with all available outputs/logs.
 "
 
@@ -184,7 +185,7 @@ while {1} {
             exp_send_user "Trying to complete challenge for $domain\n\n"
             set comms [get_ssh_command_for_http_challenge $domain $dir $cont]
             
-            set timeout 60
+            set timeout 900
             if {[catch {spawn -noecho $ssh_prog -cdw $domain $comms}]} {
                 puts "E: $ssh_prog command not found.\nIs jssh installed? If not then install it from $jssh_link"
                 exit 1
