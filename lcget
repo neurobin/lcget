@@ -161,7 +161,7 @@ for {set var 0} {$var<$argc} {incr var} {
 }
 
 if {[catch {spawn -noecho $program --text {*}$arguments}]} {
-    puts "E: Let's Encrypt launcher not found: $program"
+    puts "E: Let's Encrypt launcher not found: $program\nYou can specify letsencrypt path with -lp option."
     exit 1
 }
 
@@ -187,7 +187,7 @@ while {1} {
             
             set timeout 900
             if {[catch {spawn -noecho $ssh_prog -cdw $domain $comms}]} {
-                puts "E: $ssh_prog command not found.\nIs jssh installed? If not then install it from $jssh_link"
+                puts "E: $ssh_prog command not found.\nIs jssh installed? If not then install it from $jssh_link\nOr if it exists then try giving the path with -jp option."
                 exit 1
             }
             
