@@ -14,7 +14,10 @@ The script depends on the following tools/scripts:
 2. **ssh:** It is installed by default in most Unix based system.
 3. **jssh:** It is a wrapper to automate ssh login and/or running ssh commands.
 
-**To install jssh, download the [jssh script](https://github.com/neurobin/jssh) and put it in a bin directory which is in the PATH environment variable (e.g */usr/bin*)**. The **lcget** script uses `jssh` command to execute it.
+**To install jssh, download the [jssh script](https://github.com/neurobin/jssh) and put it in a bin directory which is in the PATH environment variable (e.g */usr/bin*)**. The **lcget** script uses `jssh` command to execute it by default. You can run **jssh** from any arbitrary path too; in that case, use the the **lcget** option `-jp` to provide the jssh path. For example:
+```
+lcget certonly --manual -d example.com -m mymail@example.com -jp /path/to/jssh
+```
 
 #Install:
 
@@ -50,8 +53,9 @@ lcget [native or letsencrypt options]
 ```
 **native options:** These are the options parsed and recognized by lcget. These are:
 
-* **--launcher-path :** Launcher path. You can define the letsencrypt launcher path with this option.
-* **--help :** This is a mixed option. It will print both **lcget** and **letsencrypt** help.
+* **--launcher-path, -lp :** Launcher path. You can define the letsencrypt launcher path with this option.
+* **-jssh-path, -jp :** Arbitrary **jssh** path. If given **jssh** will be run with the full path specified.
+* **--help, -h :** This is a mixed option. It will print both **lcget** and **letsencrypt** help.
 * **--version:** This is a mixed option. It will print version info for both **lcget** and **letsencrypt**.
 
 **letsencrypt options:** These are the options recognized by letsencrypt. These options are same as the options supported by the letsencrypt launcher.
@@ -369,6 +373,7 @@ break-my-certs
 #Testing opts end here
 
 ```
+
 
 #Caveats:
 
