@@ -3,7 +3,9 @@
 #Mechanism:
 **lcget** is a [expect](https://en.wikipedia.org/wiki/Expect) script which runs the letsencrypt command and monitor its' output. When the challenge appears on the output of `letsencrypt` command, the script parses necessary information about the challenge and tries to complete the challenge itself.
 
-To complete the http challenge, **lcget** requires ssh access to remote host i.e it runs ssh commands to the remote host to meet the necessary requirements for the acme challenge.
+To complete the http challenge in manual mode, **lcget** requires ssh access to remote host i.e it runs ssh commands to the remote host to meet the necessary requirements for the acme challenge.
+
+*Currently, only the http challenge in manual mode is supported.*
 
 
 #Dependencies:
@@ -21,7 +23,7 @@ lcget certonly --manual -d example.com -m mymail@example.com -jp /path/to/jssh
 
 #Install:
 
-First you will need to give execution permission to the script. An octal `755` permission is recommended but not required.
+First you will need to give execution permission to the script. An octal `755` permission is recommended.
 
 * You can run the script with full path or with `./lcget` by `cd`ing into the directory where it resides.
 * You can just copy the script into a standard bin directory (e.g */usr/bin*).
@@ -44,7 +46,14 @@ var=$HOME/bin
 if ! echo $PATH | grep -q  ":$var\([/:]\|$\)"; then echo "export PATH=\$PATH:$var" >> ~/.bashrc && . ~/.bashrc ;fi
 ```
 ##Note:
-**If the script isn't recognized as an executable by the system**, then you may try the `lcget-sh` script provided from within the directory where lcget resides. Furthermore, you can change the path of `lcget` to the actual path in the `lcget-sh` script and install `lcget-sh` instead of `lcget`. In these cases you will be using `lcget-sh` as the **lcget** command.
+**If the script isn't recognized as an executable by the system**, then you may try the `lcget-sh` script provided from within the directory where lcget resides. Furthermore, you can change the path of `lcget` to the actual path inside the `lcget-sh` script:
+```sh
+#!/bin/sh
+expect /actual/path/to/lcget ${1+"$@"}
+```
+and install `lcget-sh` instead of `lcget`. In this case, you will be using `lcget-sh` as the **lcget** command.
+
+**Or** you can try fixing the shebang line (`#!/usr/bin/expect --`) to the correct one for an expect script if it is supported (don't forget the `--` part though).
 
 #Usage:
 
@@ -373,6 +382,11 @@ break-my-certs
 #Testing opts end here
 
 ```
+
+**Notes:**
+
+1. The above gets a test certificate. If you edit  and use the above configuration file make sure to comment out the testing block for getting a valid certificate.
+2. In the above example, I didn't have to do anything at all other than running the **lcget** command. Not even giving ssh password as my ssh login uses (private and public) key pairs for authentication.
 
 
 #Caveats:

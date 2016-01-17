@@ -10,7 +10,7 @@ set p_name      "lcget"
 set p_author    "Md. Jahidul Hamid"
 set p_author_eu "jahidulhamid"
 set p_author_ed "yahoo.com"
-set p_version   "0.0.2a"
+set p_version   "0.0.2"
 set p_source    "https://github.com/neurobin/lcget"
 set p_bugt      "$p_source/issues"
 set jssh_link   "https://github.com/neurobin/jssh"
@@ -170,7 +170,7 @@ set letse_spawn $spawn_id
 while {1} {
     expect  {
         #set spawn_id $letse_spawn
-        timeout { exp_send_user "\nFailed!!!. Timed out.\n"; exit 1}
+        timeout { exp_send_user "\nE: Failed!!!. Timed out.\n"; exit 1}
         eof {break}
         -nocase "*http*.well-known*acme-challenge*http*server*configured*continue" {
             set output $expect_out(buffer)
@@ -194,12 +194,12 @@ while {1} {
             
             while {1} {
                 expect  {
-                    timeout { exp_send_user "\nFailed!!!. Timed out.\n"; exit 1}
+                    timeout { exp_send_user "\nE: Failed!!!. Timed out.\n"; exit 1}
                     eof {break}
-                    -re "^.\{6,\}$" {#Should be at least 6 in regards of 'ssh: ' for catching unknown prompts
+                    -re "^.\{8,\}$" {#Should be at least 6 in regards of 'ssh: ' for catching unknown prompts
                         set jssh_output $expect_out(buffer)
                         #puts $jssh_output
-                        if {[regexp  {^.*password} $jssh_output match]} {
+                        if {[regexp {^.*password.*$} $jssh_output match]} {
                             stty -echo
                             exp_send_user -- ""
                             expect_user -re "(.*)\n"
@@ -208,9 +208,14 @@ while {1} {
                             set password $expect_out(1,string)
                             exp_send "$password\r"
                         } elseif {[regexp {^E:.*Abort} $jssh_output match]} {
-                            exp_send_user "\nFailed to complete challenge for $domain\n"
+                            exp_send_user "\nE: Failed to complete challenge for $domain\n"
                             exit 1
-                        } elseif {[regexp {^.\{6,\}[:?][[:space:]]*$} $jssh_output match]} {#catching unknown prompts
+                        } elseif {[regexp {^.*continue connecting.*[:?][[:space:]]*$} $jssh_output match]} {
+                            exp_send "yes\r"
+                        } elseif {[regexp {^ssh: .*no.*$} $jssh_output match]} {
+                            exp_send_user "\nE: Failed to complete challenge for $domain\n"
+                            exit 1
+                        } elseif {[regexp {^.\{8,\}[:?][[:space:]]*$} $jssh_output match]} {#catching unknown prompts
                             expect_user -re "(.*)\n"
                             set password $expect_out(1,string)
                             exp_send "$password\r"
@@ -237,15 +242,19 @@ while {1} {
         }
         -nocase "*terms of service*\n*:" {
             exp_send_user -- ""
-            expect_user -re "(.*)\n"
-            set password $expect_out(1,string)
-            exp_send "$password\r"
+            #expect_user -re "(.*)\n"
+            #set password $expect_out(1,string)
+            #exp_send "$password\r"
+            exp_send "a\r"
+            #sending a as the answer
         }
         -nocase "*are you ok with your ip being logged\?*:" {
             exp_send_user -- ""
-            expect_user -re "(.*)\n"
-            set password $expect_out(1,string)
-            exp_send "$password\r"
+            #expect_user -re "(.*)\n"
+            #set password $expect_out(1,string)
+            #exp_send "$password\r"
+            exp_send "y\r"
+            #sending y as the answer
         }
         -nocase "*--------------*\n*--------------*:*" {
             exp_send_user -- ""
