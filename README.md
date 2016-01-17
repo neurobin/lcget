@@ -64,10 +64,10 @@ We will need to prepare a **jssh** config file for each of the domains we want t
 
 The config file must follow the naming convention: **domain.conf** e.g *example.com.conf* for example.com, *www.example.com.conf* for www.example.com etc...
 
-To create a **jssh config file** run `jssh -c` in a terminal and fill out necessary information. For example:
+To create a **jssh config file** run `jssh -aw -c` in a terminal and fill out necessary information. For example:
 
 ```
-:~$ jssh -c
+~$ jssh -aw -c
 
     Give an easy and memorable name to your config file, something like example.com.
     Later you will call jssh with this name to login to remote.
@@ -89,7 +89,7 @@ neurobin
 Enter working directory: 
 $HOME/public_html
 
-    config file saved as: /home/user/.neurobin/jssh/example.com.conf
+    Saved as: /home/user/.neurobin/jssh/example.com.conf
     You will call jssh for this configuration like this:
     jssh example.com other_ssh_options_or_args
     'jssh example.com' is the native jssh part. All other arguments
@@ -98,12 +98,13 @@ $HOME/public_html
     You can edit the config file to make further changes.
     
 
+    Additional: /home/user/.neurobin/jssh/www.example.com.conf
 ```
-This will create a config file for *example.com*. 
+This will create a config file for *example.com* and also for `www.example.com` with the same configuration ( because of the `-aw` flag passed with jssh). 
 
 **You must give the document root of your domain as the working directory.**
 
-As *www.example.com* generally points to *example.com* and thus we don't need to create a separate file for it. A symbolic link will be enough. Go to the config file directory and create a link named *www.example.com.conf* targeting to the file we just created.
+As *www.example.com* generally points to *example.com* i.e the config for both of them are same, we could create a symbolic link named `www.example.com.conf` too instead of actual file.
 
 You will need to create **jssh config file** for each of your domains. 
 
@@ -111,7 +112,7 @@ For sub-domains you can just create *subdomain.rootdomain.conf* file with the sa
 
 **Note:** 
 
-* The config file stores username, port, domain name/IP and working directory (generally document root).
+* The config file stores username, port, domain name/IP and working directory (in this case document root).
 
 ##Run lcget and get the certificate:
 Now all we have to do is to run the `lcget` command with appropriate options. The following is an example which uses a letsencrypt configuration file (All outputs are shown):
@@ -371,7 +372,7 @@ break-my-certs
 
 #Caveats:
 
-Only the required codes for completing http challenge in manual mode is included for now.
+Only the required codes for completing http challenge in manual mode is included for now, though this can be extended to support other modes and challenges too.
 
 #Further development:
 You can add other options and make **all** the things in letsencrypt automated with a little bit of knowledge about Tcl/expect. So if you feel you can do the development and extend its' capability please fork the repository and add changes and do a pull request. I will greatly appreciate that.

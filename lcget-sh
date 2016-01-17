@@ -1,2 +1,2 @@
 #!/bin/sh
-expect lcget ${1+"$@"}
+expect ./lcget ${1+"$@"}
