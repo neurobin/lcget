@@ -17,7 +17,7 @@ The script depends on the following tools/scripts:
 3. **jssh:** It is a wrapper to automate ssh login and/or running ssh commands.
 
 **To install jssh, download the [jssh script](https://github.com/neurobin/jssh) and put it in a bin directory which is in the PATH environment variable (e.g */usr/bin*)**. The **lcget** script uses `jssh` command to execute it by default. You can run **jssh** from any arbitrary path too; in that case, use the the **lcget** option `-jp` to provide the jssh path. For example:
-```
+```sh
 lcget certonly --manual -d example.com -m mymail@example.com -jp /path/to/jssh
 ```
 
@@ -33,12 +33,12 @@ First you will need to give execution permission to the script. An octal `755` p
 
 *Installing in /usr/bin* :
 
-```
+```sh
 chmod 755 path/to/lcget
 sudo cp path/to/lcget /usr/bin
 ```
 *Installing in ~/bin* :
-```
+```sh
 chmod 755 path/to/lcget
 cp path/to/lcget $HOME/bin
 #Now add $HOME/bin to PATH environment variable if not added already
