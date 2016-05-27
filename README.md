@@ -162,7 +162,7 @@ Completing challenge...
 Created dir: .well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw
 cd to dir: .well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw
 Created index.html
-Challenge completed on:/home/neurcpiw/public_html/.well-known/acme-challenge
+Challenge completed on:/home/user/public_html/.well-known/acme-challenge
 
 Completed challenge for neurobin.org  
 
@@ -193,7 +193,7 @@ Completing challenge...
 Created dir: .well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s
 cd to dir: .well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s
 Created index.html
-Challenge completed on:/home/neurcpiw/public_html/.well-known/acme-challenge
+Challenge completed on:/home/user/public_html/.well-known/acme-challenge
 
 Completed challenge for www.neurobin.org  
 
@@ -224,7 +224,7 @@ Completing challenge...
 Created dir: .well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY
 cd to dir: .well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY
 Created index.html
-Challenge completed on:/home/neurcpiw/forums/.well-known/acme-challenge
+Challenge completed on:/home/user/forums/.well-known/acme-challenge
 
 Completed challenge for forums.neurobin.org  
 
@@ -255,7 +255,7 @@ Completing challenge...
 Created dir: .well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek
 cd to dir: .well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek
 Created index.html
-Challenge completed on:/home/neurcpiw/forums/.well-known/acme-challenge
+Challenge completed on:/home/user/forums/.well-known/acme-challenge
 
 Completed challenge for www.forums.neurobin.org  
 
@@ -286,7 +286,7 @@ Completing challenge...
 Created dir: .well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI
 cd to dir: .well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI
 Created index.html
-Challenge completed on:/home/neurcpiw/wiki/.well-known/acme-challenge
+Challenge completed on:/home/user/wiki/.well-known/acme-challenge
 
 Completed challenge for wiki.neurobin.org  
 
@@ -317,7 +317,7 @@ Completing challenge...
 Created dir: .well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ
 cd to dir: .well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ
 Created index.html
-Challenge completed on:/home/neurcpiw/wiki/.well-known/acme-challenge
+Challenge completed on:/home/user/wiki/.well-known/acme-challenge
 
 Completed challenge for www.wiki.neurobin.org  
 
