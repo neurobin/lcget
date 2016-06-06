@@ -11,7 +11,7 @@ Currently, only the **http challenge in manual mode** is supported.
 #Dependencies:
 The script depends on the following tools/scripts:
 
-1. **letsencrypt:** The letsencrypt tool itself.
+1. **letsencrypt (certbot):** The letsencrypt tool itself.
 2. **expect:** You may need to install this first if not installed.
 2. **ssh:** It is installed by default in most Unix based system.
 3. **jssh:** It is a wrapper to automate ssh login and/or running ssh commands.
