@@ -79,23 +79,11 @@ proc get_ssh_command_for_http_challenge {dom cdir cont} {
     }
     
     set comms "echo 'Completing challenge...'
-    if mkdir -p '$cdir'; then
-        echo 'Created dir $cdir'
-        if cd '$cdir';then
-            echo 'cd to dir $cdir'
-            if echo -n '$cont' >index.html;then
-                echo 'Created index.html'
-                printf 'Challenge completed on '
-                dirname \`pwd\`
-            else
-                echo 'E: Failed to write file. Abort.'
-            fi
-        else
-            echo 'E: cd to $cdir failed. Abort.'
-        fi
+    if printf '%s' '$cont' > '$cdir'; then
+         echo 'Challenge completed for $dom '
     else
-        echo 'E: Could not create directory. Abort.'
-        exit 1
+         echo 'E: Failed to complete challenge for $dom. Abort.'
+         exit 1
     fi"
 
     return "$comms"
@@ -177,7 +165,7 @@ while {1} {
             set output $expect_out(buffer)
             set found [regexp  {^.*(https?://)([^/]*)/([^[:space:]]*)[^:]*:[[:space:]]*([^[:space:]]*)} $output match protocol domain dir cont]
             if {$found} {
-                puts "\n\nProtocol: $protocol\nDomain: $domain\nDir: $dir\nContent: $cont\n"
+                puts "\n\nProtocol: $protocol\nDomain: $domain\nFile: $dir\nContent: $cont\n"
             } else {
                 puts "\n\nCouldn't get challenge info.$err_api_change\n"
                 exit 1
