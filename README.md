@@ -136,16 +136,16 @@ Requesting root privileges to run certbot...
   /home/user/.local/share/letsencrypt/bin/letsencrypt --text certonly -c neurobin.conf
 [sudo] password for user: 
 Make sure your web server displays the following content at
-http://challenge.neurobin.org/.well-known/acme-challenge/Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4 before continuing:
+http://challenge.neurobin.org/.well-known/acme-challenge/s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14 before continuing:
 
-Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
+s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
 
 If you don't have HTTP server configured, you can run the following
 command on the target server (as root):
 
 mkdir -p /tmp/certbot/public_html/.well-known/acme-challenge
 cd /tmp/certbot/public_html
-printf "%s" Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc > .well-known/acme-challenge/Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4
+printf "%s" s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc > .well-known/acme-challenge/s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14
 # run only once per server:
 $(command -v python2 || command -v python2.7 || command -v python2.6) -c \
 "import BaseHTTPServer, SimpleHTTPServer; \
@@ -155,27 +155,28 @@ Press ENTER to continue
 
 Protocol: http://
 Domain: challenge.neurobin.org
-File: .well-known/acme-challenge/Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4
-Content: Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
+File: .well-known/acme-challenge/s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14
+Content: s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
 
 Trying to complete challenge for challenge.neurobin.org
 
 Completing challenge...
-Challenge completed for challenge.neurobin.org 
+Created dir : .well-known/acme-challenge
+Created file: .well-known/acme-challenge/s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14
 
 Done for challenge.neurobin.org
 
 Make sure your web server displays the following content at
-http://www.challenge.neurobin.org/.well-known/acme-challenge/SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM before continuing:
+http://www.challenge.neurobin.org/.well-known/acme-challenge/DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8 before continuing:
 
-SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
+DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
 
 If you don't have HTTP server configured, you can run the following
 command on the target server (as root):
 
 mkdir -p /tmp/certbot/public_html/.well-known/acme-challenge
 cd /tmp/certbot/public_html
-printf "%s" SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc > .well-known/acme-challenge/SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM
+printf "%s" DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc > .well-known/acme-challenge/DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8
 # run only once per server:
 $(command -v python2 || command -v python2.7 || command -v python2.6) -c \
 "import BaseHTTPServer, SimpleHTTPServer; \
@@ -185,13 +186,14 @@ Press ENTER to continue
 
 Protocol: http://
 Domain: www.challenge.neurobin.org
-File: .well-known/acme-challenge/SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM
-Content: SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
+File: .well-known/acme-challenge/DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8
+Content: DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
 
 Trying to complete challenge for www.challenge.neurobin.org
 
 Completing challenge...
-Challenge completed for www.challenge.neurobin.org 
+Created dir : .well-known/acme-challenge
+Created file: .well-known/acme-challenge/DKCumvxBheZMe_cfxA83uhIA7OrTu9RZBdxxaMEbAJ8
 
 Done for www.challenge.neurobin.org
 

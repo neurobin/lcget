@@ -64,12 +64,12 @@ with all available outputs/logs.
 
 
 #####################################################################
-proc get_ssh_command_for_http_challenge {dom cdir cont} {
+proc get_ssh_command_for_http_challenge {dom file_p cont} {
     if {$dom == ""} {
         puts "E: Couldn't parse domain. Abort."
         exit 1
     }
-    if {$cdir == ""} {
+    if {$file_p == ""} {
         puts "E: Couldn't parse directory name. Abort."
         exit 1
     }
@@ -77,10 +77,11 @@ proc get_ssh_command_for_http_challenge {dom cdir cont} {
         puts "E: Couldn't parse content. Abort."
         exit 1
     }
-    
+    set cdir [file dirname $file_p]
     set comms "echo 'Completing challenge...'
-    if printf '%s' '$cont' > '$cdir'; then
-         echo 'Challenge completed for $dom '
+    mkdir -p '$cdir' && echo 'Created dir : $cdir'
+    if printf '%s' '$cont' > '$file_p'; then
+         echo 'Created file: $file_p'
     else
          echo 'E: Failed to complete challenge for $dom. Abort.'
          exit 1
@@ -163,15 +164,15 @@ while {1} {
         eof {break}
         -nocase "*http*.well-known*acme-challenge*http*server*configured*continue" {
             set output $expect_out(buffer)
-            set found [regexp  {^.*(https?://)([^/]*)/([^[:space:]]*)[^:]*:[[:space:]]*([^[:space:]]*)} $output match protocol domain dir cont]
+            set found [regexp  {^.*(https?://)([^/]*)/([^[:space:]]*)[^:]*:[[:space:]]*([^[:space:]]*)} $output match protocol domain file_p cont]
             if {$found} {
-                puts "\n\nProtocol: $protocol\nDomain: $domain\nFile: $dir\nContent: $cont\n"
+                puts "\n\nProtocol: $protocol\nDomain: $domain\nFile: $file_p\nContent: $cont\n"
             } else {
                 puts "\n\nCouldn't get challenge info.$err_api_change\n"
                 exit 1
             }
             exp_send_user "Trying to complete challenge for $domain\n\n"
-            set comms [get_ssh_command_for_http_challenge $domain $dir $cont]
+            set comms [get_ssh_command_for_http_challenge $domain $file_p $cont]
             
             set timeout 900
             if {[catch {spawn -noecho $ssh_prog -cdw $domain $comms}]} {
