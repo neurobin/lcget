@@ -131,21 +131,21 @@ For sub-domains you can just create *subdomain.rootdomain.conf* file with the sa
 Now all we have to do is to run the `lcget` command with appropriate options. The following is an example which uses a letsencrypt configuration file (All outputs are shown):
 
 ```sh
-~$ lcget certonly -c ~/.letsencrypt/neurobin.org.ini
-Updating letsencrypt and virtual environment dependencies......
-Requesting root privileges to run with virtualenv: sudo /home/user/.local/share/letsencrypt/bin/letsencrypt --text certonly -c /home/user/.letsencrypt/neurobin.org.ini
+~$ lcget certonly -c neurobin.conf
+Requesting root privileges to run certbot...
+  /home/user/.local/share/letsencrypt/bin/letsencrypt --text certonly -c neurobin.conf
 [sudo] password for user: 
 Make sure your web server displays the following content at
-http://neurobin.org/.well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw before continuing:
+http://challenge.neurobin.org/.well-known/acme-challenge/Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4 before continuing:
 
-LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
+Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
 
 If you don't have HTTP server configured, you can run the following
 command on the target server (as root):
 
-mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
-cd /tmp/letsencrypt/public_html
-printf "%s" LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA > .well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw
+mkdir -p /tmp/certbot/public_html/.well-known/acme-challenge
+cd /tmp/certbot/public_html
+printf "%s" Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc > .well-known/acme-challenge/Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4
 # run only once per server:
 $(command -v python2 || command -v python2.7 || command -v python2.6) -c \
 "import BaseHTTPServer, SimpleHTTPServer; \
@@ -154,29 +154,28 @@ s.serve_forever()"
 Press ENTER to continue
 
 Protocol: http://
-Domain: neurobin.org
-Dir: .well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw
-Content: LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
+Domain: challenge.neurobin.org
+File: .well-known/acme-challenge/Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4
+Content: Vcu33835juZUd3T8D-tPJ5P5U3g_gPsR7_1o8ccmhe4.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
+
+Trying to complete challenge for challenge.neurobin.org
 
 Completing challenge...
-Created dir: .well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw
-cd to dir: .well-known/acme-challenge/LF9LYxWVhs_UtmmXbUqjNIClIVwglXzD8qCR5y9q-Vw
-Created index.html
-Challenge completed on:/home/user/public_html/.well-known/acme-challenge
+Challenge completed for challenge.neurobin.org 
 
-Completed challenge for neurobin.org  
+Done for challenge.neurobin.org
 
 Make sure your web server displays the following content at
-http://www.neurobin.org/.well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s before continuing:
+http://www.challenge.neurobin.org/.well-known/acme-challenge/SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM before continuing:
 
-08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
+SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
 
 If you don't have HTTP server configured, you can run the following
 command on the target server (as root):
 
-mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
-cd /tmp/letsencrypt/public_html
-printf "%s" 08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA > .well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s
+mkdir -p /tmp/certbot/public_html/.well-known/acme-challenge
+cd /tmp/certbot/public_html
+printf "%s" SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc > .well-known/acme-challenge/SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM
 # run only once per server:
 $(command -v python2 || command -v python2.7 || command -v python2.6) -c \
 "import BaseHTTPServer, SimpleHTTPServer; \
@@ -185,164 +184,41 @@ s.serve_forever()"
 Press ENTER to continue
 
 Protocol: http://
-Domain: www.neurobin.org
-Dir: .well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s
-Content: 08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
+Domain: www.challenge.neurobin.org
+File: .well-known/acme-challenge/SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM
+Content: SS47QO3EmVxIqYlpcJ66B0UhZbabo2P2dHSnyL8BZmM.fl_1v9fRIhdgCXPAMg0ohwMfX66pkSQ_eTJjm2tejZc
+
+Trying to complete challenge for www.challenge.neurobin.org
 
 Completing challenge...
-Created dir: .well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s
-cd to dir: .well-known/acme-challenge/08k373zvf_3qSWMTKEjbE1QgORfm0zVqw6mJVo3u22s
-Created index.html
-Challenge completed on:/home/user/public_html/.well-known/acme-challenge
+Challenge completed for www.challenge.neurobin.org 
 
-Completed challenge for www.neurobin.org  
-
-Make sure your web server displays the following content at
-http://forums.neurobin.org/.well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY before continuing:
-
-j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-If you don't have HTTP server configured, you can run the following
-command on the target server (as root):
-
-mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
-cd /tmp/letsencrypt/public_html
-printf "%s" j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA > .well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY
-# run only once per server:
-$(command -v python2 || command -v python2.7 || command -v python2.6) -c \
-"import BaseHTTPServer, SimpleHTTPServer; \
-s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
-s.serve_forever()" 
-Press ENTER to continue
-
-Protocol: http://
-Domain: forums.neurobin.org
-Dir: .well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY
-Content: j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-Completing challenge...
-Created dir: .well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY
-cd to dir: .well-known/acme-challenge/j5eGd516jVvkO6XaXSQvGzopUM38ahBU7-4OnrG0zXY
-Created index.html
-Challenge completed on:/home/user/forums/.well-known/acme-challenge
-
-Completed challenge for forums.neurobin.org  
-
-Make sure your web server displays the following content at
-http://www.forums.neurobin.org/.well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek before continuing:
-
-6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-If you don't have HTTP server configured, you can run the following
-command on the target server (as root):
-
-mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
-cd /tmp/letsencrypt/public_html
-printf "%s" 6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA > .well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek
-# run only once per server:
-$(command -v python2 || command -v python2.7 || command -v python2.6) -c \
-"import BaseHTTPServer, SimpleHTTPServer; \
-s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
-s.serve_forever()" 
-Press ENTER to continue
-
-Protocol: http://
-Domain: www.forums.neurobin.org
-Dir: .well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek
-Content: 6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-Completing challenge...
-Created dir: .well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek
-cd to dir: .well-known/acme-challenge/6DouCqmu-Qx4e_GCJcCI6ao7t3GfFv_sDycpWxjlaek
-Created index.html
-Challenge completed on:/home/user/forums/.well-known/acme-challenge
-
-Completed challenge for www.forums.neurobin.org  
-
-Make sure your web server displays the following content at
-http://wiki.neurobin.org/.well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI before continuing:
-
-MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-If you don't have HTTP server configured, you can run the following
-command on the target server (as root):
-
-mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
-cd /tmp/letsencrypt/public_html
-printf "%s" MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA > .well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI
-# run only once per server:
-$(command -v python2 || command -v python2.7 || command -v python2.6) -c \
-"import BaseHTTPServer, SimpleHTTPServer; \
-s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
-s.serve_forever()" 
-Press ENTER to continue
-
-Protocol: http://
-Domain: wiki.neurobin.org
-Dir: .well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI
-Content: MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-Completing challenge...
-Created dir: .well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI
-cd to dir: .well-known/acme-challenge/MIRHddhxd5QyLBEElSWXiM7aEs1pQ4bwVI1ybOItuNI
-Created index.html
-Challenge completed on:/home/user/wiki/.well-known/acme-challenge
-
-Completed challenge for wiki.neurobin.org  
-
-Make sure your web server displays the following content at
-http://www.wiki.neurobin.org/.well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ before continuing:
-
-rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-If you don't have HTTP server configured, you can run the following
-command on the target server (as root):
-
-mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
-cd /tmp/letsencrypt/public_html
-printf "%s" rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA > .well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ
-# run only once per server:
-$(command -v python2 || command -v python2.7 || command -v python2.6) -c \
-"import BaseHTTPServer, SimpleHTTPServer; \
-s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
-s.serve_forever()" 
-Press ENTER to continue
-
-Protocol: http://
-Domain: www.wiki.neurobin.org
-Dir: .well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ
-Content: rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ.G8uRfTIvsKsDuxiyJQ6leIcuXwIc8svyBrWQGSQ1CFA
-
-Completing challenge...
-Created dir: .well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ
-cd to dir: .well-known/acme-challenge/rs94EfewbK5sGUfcOfeUmJnbI7-Um1iWVva8f0fQ2JQ
-Created index.html
-Challenge completed on:/home/user/wiki/.well-known/acme-challenge
-
-Completed challenge for www.wiki.neurobin.org  
+Done for www.challenge.neurobin.org
 
 
 IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at
-   /etc/letsencrypt/live/neurobin.org/fullchain.pem. Your cert will
-   expire on 2016-04-15. To obtain a new version of the certificate in
-   the future, simply run Let's Encrypt again.
- - If you like Let's Encrypt, please consider supporting our work by:
+   /etc/letsencrypt/live/challenge.neurobin.org/fullchain.pem. Your
+   cert will expire on 2016-09-04. To obtain a new or tweaked version
+   of this certificate in the future, simply run letsencrypt again. To
+   non-interactively renew *all* of your certificates, run
+   "letsencrypt renew"
+ - If you like Certbot, please consider supporting our work by:
 
    Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
    Donating to EFF:                    https://eff.org/donate-le
 
 
 ```
-The *neurobin.org.ini* file:
+The *neurobin.conf* file:
 
 ```sh
 # This is an example of the kind of things you can do in a configuration file.
 # All flags used by the client can be configured here. Run Lets Encrypt with
 # --help to learn more about the available options.
 config-dir = /etc/letsencrypt
-work-dir = /var/lib/letsencrypt
-logs-dir = /var/log/letsencrypt
+work-dir = /home/user/.letsencrypt
+logs-dir = /home/user/.letsencrypt
 # Use a 4096 bit RSA key instead of 2048
 rsa-key-size = 4096
 
@@ -351,7 +227,7 @@ email = admin@neurobin.org
 
 # Uncomment and update to generate certificates for the specified domains.
 #Add subdomains or domains however you like. My recommendation is to put the root domain at beginning.
-domains = neurobin.org, www.neurobin.org, forums.neurobin.org, www.forums.neurobin.org, wiki.neurobin.org, www.wiki.neurobin.org
+domains = challenge.neurobin.org, www.challenge.neurobin.org
 
 
 # Uncomment to use a text interface instead of ncurses
