@@ -131,9 +131,9 @@ For sub-domains you can just create *subdomain.rootdomain.conf* file with the sa
 Now all we have to do is to run the `lcget` command with appropriate options. The following is an example which uses a letsencrypt configuration file (All outputs are shown):
 
 ```sh
-~$ lcget certonly -c neurobin.conf
+~$ lcget certonly -c neurobin.ini
 Requesting root privileges to run certbot...
-  /home/user/.local/share/letsencrypt/bin/letsencrypt --text certonly -c neurobin.conf
+  /home/user/.local/share/letsencrypt/bin/letsencrypt --text certonly -c neurobin.ini
 [sudo] password for user: 
 Make sure your web server displays the following content at
 http://challenge.neurobin.org/.well-known/acme-challenge/s3xMuDO7WwjTUX6pbAq8hj1Ixpf4V-Rin9FBmdHDV14 before continuing:
@@ -212,7 +212,7 @@ IMPORTANT NOTES:
 
 
 ```
-The *neurobin.conf* file:
+The *neurobin.ini* file:
 
 ```sh
 # This is an example of the kind of things you can do in a configuration file.
