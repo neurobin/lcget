@@ -1,6 +1,6 @@
 **lcget** is a wrapper (written in [Tcl/expect](https://en.wikipedia.org/wiki/Expect)) for letsencrypt which automates the task of completing challenges for remote server/domains from a local machine. It relieves you of the pain of running multiple commands in multiple terminals. Most of the time, a single command in a single terminal will be enough to get the certificate from Let's Encrypt. It doesn't require sudo access on remote host if the document root is in /home directory i.e for shared hosting.
 
-#Mechanism:
+# Mechanism:
 **lcget** is an [expect](https://en.wikipedia.org/wiki/Expect) script which runs the letsencrypt command and monitor its' output. When the challenge appears on the output of `letsencrypt` command, the script parses necessary information about the challenge and tries to complete the challenge itself.
 
 To complete the http challenge in manual mode, **lcget** requires ssh access to the remote host i.e it runs ssh commands to the remote host to meet the necessary requirements for the acme challenge.
@@ -8,7 +8,7 @@ To complete the http challenge in manual mode, **lcget** requires ssh access to 
 Currently, only the **http challenge in manual mode** is supported.
 
 
-#Dependencies:
+# Dependencies:
 The script depends on the following tools/scripts:
 
 1. **letsencrypt (certbot):** The letsencrypt tool itself.
@@ -21,7 +21,7 @@ The script depends on the following tools/scripts:
 lcget certonly --manual -d example.com -m mymail@example.com -jp /path/to/jssh
 ```
 
-#Install:
+# Install:
 
 First you will need to give execution permission to the script. An octal `755` permission is recommended.
 
@@ -29,7 +29,7 @@ First you will need to give execution permission to the script. An octal `755` p
 * You can just copy the script into a standard bin directory (e.g */usr/bin*).
 * Or you can run the *install.sh* script which tries to install it in *~/bin* along with **jssh**.
 
-##Installing examples:
+## Installing examples:
 
 *Installing in /usr/bin* :
 
@@ -41,11 +41,11 @@ sudo cp path/to/lcget /usr/bin
 ```sh
 chmod 755 path/to/lcget
 cp path/to/lcget $HOME/bin
-#Now add $HOME/bin to PATH environment variable if not added already
+# Now add $HOME/bin to PATH environment variable if not added already
 var=$HOME/bin
 if ! echo $PATH | grep -q  ":$var\([/:]\|$\)"; then echo "export PATH=\$PATH:$var" >> ~/.bashrc && . ~/.bashrc ;fi
 ```
-##Note:
+## Note:
 **If the script isn't recognized as an executable by the system**, then you may try the `lcget-sh` script provided. Furthermore, you can change the path of `lcget` to the actual path inside the `lcget-sh` script:
 ```sh
 #!/bin/sh
@@ -55,7 +55,7 @@ and install `lcget-sh` instead of `lcget`. In this case, you will be using `lcge
 
 **Or** you can try fixing the shebang line (`#!/usr/bin/expect --`) to the correct one for an expect script if it is supported (don't forget the `--` part though).
 
-#Usage:
+# Usage:
 
 ```
 lcget [native or letsencrypt options]
@@ -70,10 +70,10 @@ lcget [native or letsencrypt options]
 **letsencrypt options:** These are the options recognized by letsencrypt. These options are same as the options supported by the letsencrypt launcher.
 
 
-#How to:
+# How to:
 We will need to prepare a **jssh** config file for each of the domains we want to get Let's Encrypt ssl certificate for. We will do this just once, after that we will be running the `lcget` command only.
 
-##Create jssh config file:
+## Create jssh config file:
 
 The config file must follow the naming convention: **domain.conf** e.g *example.com.conf* for example.com, *www.example.com.conf* for www.example.com etc...
 
@@ -127,7 +127,7 @@ For sub-domains you can just create *subdomain.rootdomain.conf* file with the sa
 
 * The config file stores username, port, domain name/IP and working directory (in this case document root).
 
-##Run lcget and get the certificate:
+## Run lcget and get the certificate:
 Now all we have to do is to run the `lcget` command with appropriate options. The following is an example which uses a letsencrypt configuration file (All outputs are shown):
 
 ```sh
@@ -267,10 +267,10 @@ break-my-certs
 2. In the above example, I didn't have to do anything at all other than running the **lcget** command. Not even giving ssh password as my ssh login uses (private and public) key pairs for authentication.
 
 
-#Caveats:
+# Caveats:
 
 Only the required codes for completing http challenge in manual mode is included for now, though this can be extended to support other modes and challenges too.
 
-#Further development:
+# Further development:
 You can add other options and make **all** the things in letsencrypt automated by a little haggle with Tcl/expect. So, if you feel you can do the development and extend its' capability please fork the repository and add changes and do a pull request. I will greatly appreciate that.
 
