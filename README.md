@@ -265,6 +265,7 @@ break-my-certs
 
 1. The above gets a test certificate. If you edit  and use the above configuration file make sure to comment out the testing block for getting a valid certificate.
 2. In the above example, I didn't have to do anything at all other than running the **lcget** command. Not even giving ssh password as my ssh login uses (private and public) key pairs for authentication.
+3. The above uses **Document Root** of the domain as the challenge directory. If challenge directory is elsewhere, change the jssh config file accordingly, e.g if challenge for example.com is redirected to challenge.example.com, use the document root (or credentials) of `challenge.example.com` as working directory in `example.com.conf` (jssh config file for example.com)
 
 
 # Caveats:
